@@ -1,12 +1,20 @@
-Setting, Side, R_L, V_s
-5, "black", 22.6, 5.2
-5, "blank", 22.5 , 0.4
-5, "white", 22.6, 5.1
-5, "coarse", 22.6, 2.1
-6.5,"black", 13.6, 7.6
-6.5, "blank", 13.6, 0.6
-6.5, "white", 13.7, 7.6
-6.5, "coarse", 13.8, 3.0
+Setting,Side,R_L,V_s
+5,black, 22.6, 5.2
+5,blank, 22.5 , 0.4
+5,white, 22.6, 5.1
+5,coarse, 22.6, 2.1
+6.5,black, 13.6, 7.6
+6.5,blank, 13.6, 0.6
+6.5,white, 13.7, 7.6
+6.5,coarse, 13.8, 3.0
+8,black, 8.8, 9.6
+8,blank, 8.8, 0.3
+8,white, 8.8, 9.5
+8,coarse, 8.8, 3.6
+10,black, 7.9, 10.1
+10,blank, 7.9, 0.4
+10,white, 7.9, 10.0
+10,coarse, 7.9, 3.8
 
 
 
