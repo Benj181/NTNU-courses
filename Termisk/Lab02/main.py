@@ -24,7 +24,7 @@ def emmisivity():
 
     df01 = pd.read_csv(f'{sys.path[0]}\\data01.csv')
     pivot_df = df01.pivot(index='Setting', columns='Side', values='V_s')
-
+   
     # Calculating the ratio for 'blank', 'white', and 'coarse' divided by 'black'
     pivot_df['blank/black'] = pivot_df['blank'] / pivot_df['black']
     pivot_df['white/black'] = pivot_df['white'] / pivot_df['black']
@@ -46,11 +46,10 @@ def emmisivity():
     filtered_pivot_df = pivot_df[ratio_columns]
     filtered_std_ratio_df = std_ratio_df[ratio_columns]
 
-
     # Create an empty DataFrame to store the results in "V ± σ" format
     combined_df = pd.DataFrame(index=pivot_df.index)
     for col in filtered_pivot_df.columns:
-        combined_df[col] = [f"{round((v),4)} ± {round_to_sig(s)}"
+        combined_df[col] = [f"{round_to_sig(v, 2)} ± {round_to_sig(s, 2)}"
                             for v, s in zip(filtered_pivot_df[col].astype(float), filtered_std_ratio_df[col].astype(float))]
     
     # Calculate mean and standard deviation for each ratio
@@ -63,7 +62,7 @@ def emmisivity():
         mean_val = filtered_pivot_df[col].mean()
         std_val = filtered_pivot_df[col].std()
         # Format mean ± std with 4 significant figures
-        mean_std_str = f"{round_to_sig(mean_val)} ± {round_to_sig(std_val)}"
+        mean_std_str = f"{round_to_sig(mean_val, 3)} ± {round_to_sig(std_val, 3)}"
         # Append to summary dictionary
         experiment_summary["Experiment"].append(col)
         experiment_summary["V ± σ"].append(mean_std_str)
@@ -71,17 +70,18 @@ def emmisivity():
     # Create a new DataFrame from the summary dictionary
     summary_df = pd.DataFrame(experiment_summary)
 
+
     # Display the resulting DataFrames
     print(f'pivot \n{filtered_pivot_df}')
     print('-----------------------------------')
     print(f'std \n{filtered_std_ratio_df}')
     print('-----------------------------------')
-    print(f'std \n{combined_df}')
+    print(f'\nCombined \n{combined_df}')
     print('-----------------------------------')
-    print(f'std \n{summary_df}')
+    print(f'\nSummary \n{summary_df}')
 
-print('Emmisivity')
-emmisivity()
+# print('Emmisivity')
+# emmisivity()
 
 def Steffan_Boltzmann():
     # Table values to interpolate R/R_0
@@ -103,19 +103,22 @@ def Steffan_Boltzmann():
         V_s_pred = poly_eq(lgT)
         residuals = lgV_s - V_s_pred
         std_dev = np.std(residuals)
-        print(f"Coefficients: {coefficients}")
-        print(f"Standard Deviation of the residuals: {std_dev}")
+        print(f"Stefan-Boltzmann konstant: {round(coefficients[0], 2)}")
+        print(f"Std of the residuals: {std_dev}")
         return coefficients, V_s_pred
-    
-    coefficients, V_s_pred = analysis(lgT, lgV_s)
-    plt.plot(lgT, lgV_s, 'o', label='Experimental Data')
-    plt.plot(lgT, V_s_pred, label='polyfit [{:.2f}x {:.2f}]'.format(coefficients[0], coefficients[1]))
-    plt.plot(lgT, np.abs(lgV_s - V_s_pred), label='Residuals')
 
-    plt.xlabel('Temperature [K] (log-scale)')
-    plt.ylabel('Voltage [V] (log-scale)')
-    plt.title('Voltage vs Temperature in log-scale')
+    coefficients, V_s_pred = analysis(lgT, lgV_s)
+    plt.style.use('seaborn-v0_8-whitegrid')
+    plt.plot(lgT, lgV_s, 'x', label='Experimental Data', color='black')
+    plt.plot(lgT, V_s_pred, label='Regression line', color='grey', linewidth=0.5)
+
+    # print(plt.style.available)
+    plt.grid(visible=True, which='both', linestyle='--', linewidth=0.5, alpha=0.3)
+    plt.xlabel(r'$\log_{10}(\mathrm{Temperature})$ (K)')
+    plt.ylabel(r'$\log_{10}(\mathrm{Voltage})$ (mV)')
+    plt.title('Steffan-Boltzmann Law', fontsize=14)
     plt.legend()
+    plt.savefig('plot.pdf', format='pdf', bbox_inches='tight', transparent=True)
     plt.show()
 
 print('\nSteffan-Boltzmann')
