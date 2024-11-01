@@ -9,6 +9,7 @@ alpha = 5.67e-8
 T_0 = 273.15 + 21.1
 R_0 = (38.7 - 4.7) / 100
 
+
 def emmisivity():
     # function to round to significant figures
     def round_to_sig(x, sig=4):
@@ -87,7 +88,7 @@ def Steffan_Boltzmann():
     # Table values to interpolate R/R_0
     xp = np.array([1.0, 1.43, 1.87, 2.34, 2.85, 3.36, 3.88, 4.41, 4.95, 5.48, 6.03, 6.58, 7.14, 7.71, 8.28, 8.86, 9.44, 10.03, 10.63, 11.24, 11.88, 12.46, 13.08])
     fp = np.linspace(300, 2500, 23)
-    
+
     df02 = pd.read_csv(f'{sys.path[0]}\\data02.csv')
     V_s = df02['V_s'].to_numpy()
     V = df02['V'].to_numpy()
@@ -105,9 +106,9 @@ def Steffan_Boltzmann():
         std_dev = np.std(residuals)
         print(f"Stefan-Boltzmann konstant: {round(coefficients[0], 2)}")
         print(f"Std of the residuals: {std_dev}")
-        return coefficients, V_s_pred
+        return V_s_pred
 
-    coefficients, V_s_pred = analysis(lgT, lgV_s)
+    V_s_pred = analysis(lgT, lgV_s)
     plt.style.use('seaborn-v0_8-whitegrid')
     plt.plot(lgT, lgV_s, 'x', label='Experimental Data', color='black')
     plt.plot(lgT, V_s_pred, label='Regression line', color='grey', linewidth=0.5)
@@ -118,7 +119,7 @@ def Steffan_Boltzmann():
     plt.ylabel(r'$\log_{10}(\mathrm{Voltage})$ (mV)')
     plt.title('Steffan-Boltzmann Law', fontsize=14)
     plt.legend()
-    plt.savefig('plot.pdf', format='pdf', bbox_inches='tight', transparent=True)
+    plt.savefig('plot02.pdf', format='pdf', bbox_inches='tight', transparent=True)
     plt.show()
 
 print('\nSteffan-Boltzmann')
