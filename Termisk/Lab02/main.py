@@ -104,7 +104,7 @@ def Steffan_Boltzmann():
         V_s_pred = poly_eq(lgT)
         residuals = lgV_s - V_s_pred
         std_dev = np.std(residuals)
-        print(f"Stefan-Boltzmann konstant: {round(coefficients[0], 2)}")
+        print(f"Stefan-Boltzmann konstant: {coefficients[0]}")
         print(f"Std of the residuals: {std_dev}")
         return V_s_pred
 
@@ -115,9 +115,67 @@ def Steffan_Boltzmann():
 
     # print(plt.style.available)
     plt.grid(visible=True, which='both', linestyle='--', linewidth=0.5, alpha=0.3)
-    plt.xlabel(r'$\log_{10}(\mathrm{Temperature})$ (K)')
-    plt.ylabel(r'$\log_{10}(\mathrm{Voltage})$ (mV)')
+    plt.xlabel(r'$\log_{10}(\mathrm{Temperature / (1 K)})$')
+    plt.ylabel(r'$\log_{10}(\mathrm{Voltage / (1 mV)})$')
     plt.title('Steffan-Boltzmann Law', fontsize=14)
+    plt.legend()
+    plt.savefig('plot02.pdf', format='pdf', bbox_inches='tight', transparent=True)
+    plt.show()
+
+def Steffan_Boltzmann():
+    # Table values to interpolate R/R_0
+    xp = np.array([1.0, 1.43, 1.87, 2.34, 2.85, 3.36, 3.88, 4.41, 4.95, 5.48, 6.03, 6.58, 7.14, 7.71, 8.28, 8.86, 9.44, 10.03, 10.63, 11.24, 11.88, 12.46, 13.08])
+    fp = np.linspace(300, 2500, 23)
+
+    # Load data
+    df02 = pd.read_csv(f'{sys.path[0]}\\data02.csv')
+    V_s = df02['V_s'].to_numpy()
+    V = df02['V'].to_numpy()
+    I = df02['I'].to_numpy()
+
+    # Calculate resistance and its uncertainty
+    R = V / I
+
+    # Assume percentage error for V and I
+    error_percent_V, error_percent_I = 0.01, 0.01  # e.g., 1% error
+    delta_V = 0.005
+    delta_I = 0.0005
+
+    # Error propagation for R = V / I
+    delta_R = R * np.sqrt((delta_V / V)**2 + (delta_I / I)**2)
+
+    # Interpolate temperatures and estimate temperature error
+    T = np.interp(R / R_0, xp, fp)
+    delta_T = np.interp((R + delta_R) / R_0, xp, fp) - T  # Approximate error in T
+
+    # Logarithmic values for regression
+    lgT, lgV_s = np.log10(T), np.log10(V_s)
+    delta_lgT = np.abs(delta_T / T) / np.log(10)  # Convert temperature error to log scale
+    delta_lgV_s = np.abs(0.05 / V_s) / np.log(10)  # Example: Assume 5% error in V_s
+
+    def analysis(lgT, lgV_s):
+        coefficients = np.polyfit(lgT, lgV_s, 1)
+        poly_eq = np.poly1d(coefficients)
+        V_s_pred = poly_eq(lgT)
+        residuals = lgV_s - V_s_pred
+        std_dev = np.std(residuals)
+        print(f"Stefan-Boltzmann constant: {coefficients[0]}")
+        print(f"Standard deviation of residuals: {std_dev}")
+        return V_s_pred, std_dev
+
+    V_s_pred, std_dev = analysis(lgT, lgV_s)
+
+    # Plotting with error bars
+    plt.style.use('default')
+    plt.figure(figsize=(8, 6))
+    plt.errorbar(lgT, lgV_s, xerr=delta_lgT, yerr=delta_lgV_s, fmt='x', label='Experimental Data', color='black', ecolor='blue', elinewidth=0.5, capsize=2)
+    plt.plot(lgT, V_s_pred, label='Regression line', color='grey', linewidth=0.5)
+
+    # Plot settings
+    plt.grid(visible=True, which='both', linestyle='--', linewidth=0.5, alpha=0.3)
+    plt.xlabel(r'$\log_{10}(\mathrm{Temperature / (1 K)})$')
+    plt.ylabel(r'$\log_{10}(\mathrm{Voltage / (1 mV)})$')
+    plt.title('Stefan-Boltzmann Law', fontsize=14)
     plt.legend()
     plt.savefig('plot02.pdf', format='pdf', bbox_inches='tight', transparent=True)
     plt.show()
