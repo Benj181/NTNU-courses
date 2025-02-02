@@ -46,7 +46,7 @@ string randomizeString(const int &stringLength,
 	string result;
     random_device rd;
     default_random_engine generator(rd());
-    uniform_int_distribution<int> distribution(upperLimitChar,
+    uniform_int_distribution<char> distribution(upperLimitChar,
 											   lowerLimitChar);
 
 	for (int i = 0; i < stringLength; ++i) {

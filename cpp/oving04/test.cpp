@@ -46,13 +46,24 @@ void testIsInProgram(){
 
 void testString(){
 	// 3b OG 3e gjøres inne i her
-	int stringLength = 8;
-	char upperChar = 'A';
-	char lowerChar = 'F';
-	string grades = randomizeString(stringLength, upperChar, lowerChar);
-	cout << grades;
-	// BEGIN: 3e
 
+	int stringLength = 8;
+	string grades = randomizeString(stringLength, 'A', 'F');
+	cout << grades << endl;
+
+	// BEGIN: 3e
+	vector<int> gradeCount(6);
+	string possibleGrades = "ABCDEF";
+	double GPA = 0.0;
+
+	for (size_t i = 0; i < 6; i++) {
+
+		gradeCount[i] = countChar(grades, static_cast<char>(possibleGrades[i]));
+		GPA += gradeCount[i] * (6-static_cast<int>(i));
+	}
+	
+	GPA = GPA / stringLength;
+	cout << "Your GPA (6) is " << GPA << endl;
 	// END: 3e
 }
 
