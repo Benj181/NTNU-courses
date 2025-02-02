@@ -7,5 +7,5 @@ void testCallByReference();
 void testSwapNumbers();
 void testPrintStudent();
 void testIsInProgram();
-
+void testreadInputToString();
 void testString();

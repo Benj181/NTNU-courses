@@ -46,11 +46,11 @@ string randomizeString(const int &stringLength,
 	string result;
     random_device rd;
     default_random_engine generator(rd());
-    uniform_int_distribution<int> distribution(static_cast<int>(lowerLimitChar),
-											   static_cast<int>(upperLimitChar));
+    uniform_int_distribution<int> distribution(upperLimitChar,
+											   lowerLimitChar);
 
 	for (int i = 0; i < stringLength; ++i) {
-		char randomLetter = static_cast<char>(distribution(generator));
+		char randomLetter = distribution(generator);
 		result += randomLetter;
 	}
 	return result;
@@ -59,7 +59,26 @@ string randomizeString(const int &stringLength,
 // END: 3a
 
 // BEGIN: 3c
-///*returverdi*/ readInputToString(/*param 1: lengde n, param 2: øvre grense, param 3: nedre grense*/)
+string readInputToString(const int &n, const char &upperLimitChar, const char &lowerLimitChar) {
+	string result;
+	char input;
+	for (int i=0; i < n; i++){
+		while (1) {
+			cout << "Type in a character between " << lowerLimitChar << " and " << upperLimitChar << "\n> ";
+			cin >> input;
+			if (toupper(input) <= lowerLimitChar and
+			    toupper(input) >= upperLimitChar) {
+				break;
+			} else {
+				cout << "Not a valid character, try again..." << endl;
+			}
+		}
+		result += toupper(input);
+	}
+	return result;
+}
+
+///*returverdi*/ c(/*param 1: lengde n, param 2: øvre grense, param 3: nedre grense*/)
 // END: 3c
 
 // BEGIN: 3d

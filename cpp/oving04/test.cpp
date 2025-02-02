@@ -48,8 +48,8 @@ void testString(){
 	// 3b OG 3e gjøres inne i her
 	// BEGIN: 3b
 	int stringLength = 8;
-	char upperChar = 'F';
-	char lowerChar = 'A';
+	char upperChar = 'A';
+	char lowerChar = 'F';
 	randomizeString(stringLength, upperChar, lowerChar);
 	cout << "random string\n> " << randomizeString(stringLength, upperChar, lowerChar) <<endl;
 	// END: 3b
@@ -57,4 +57,9 @@ void testString(){
 	// BEGIN: 3e
 
 	// END: 3e
+}
+
+void testreadInputToString() {
+	string result = readInputToString(4, 'A', 'F');
+	cout << "Your string is " << result;
 }

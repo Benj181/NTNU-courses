@@ -38,7 +38,7 @@ string randomizeString(const int &stringLength, const char &upperLimitChar, cons
 // END: 3a
 
 // BEGIN: 3c
- // deklarerer funksjonen readInputToString her
+string readInputToString(const int &n, const char &upperLimitChar, const char &lowerLimitChar);
 // END: 3c
 
 // BEGIN: 3d

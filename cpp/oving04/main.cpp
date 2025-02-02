@@ -38,6 +38,9 @@ int main(){
 		case 6:
 			testString();
 			break;
+		case 7:
+			testreadInputToString();
+			break;
 		default:
 			cout << "Invalid choice\n";
 			break;
