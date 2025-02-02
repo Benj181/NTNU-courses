@@ -15,9 +15,16 @@ void testCallByValue()
 void testCallByReference()
 {
 	// BEGIN: 1d
-
+	int v0 = 5;
+	int temp = v0;
+	int increment = 2;
+	int iterations = 10;
+	incrementByValueNumTimesRef(v0, increment, iterations);
+	cout << "v0: " << temp
+		 << " increment: " << increment
+		 << " iterations: " << iterations 
+		 << " result: " << v0 << '\n';
 	// END: 1d
-
 }
 
 

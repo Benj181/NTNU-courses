@@ -6,7 +6,7 @@ int incrementByValueNumTimes(int startValue, int increment, int numTimes);
 // END: 1b
 
 // BEGIN: 1d
- // deklarerer funksjonen incrementByValueNumTimesRef her
+void incrementByValueNumTimesRef(int& startValue, int increment, int numTimes);
 // END: 1d
 
 // BEGIN: 1e

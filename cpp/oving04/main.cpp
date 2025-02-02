@@ -5,9 +5,29 @@
 
 int main()
 {
-	testCallByValue();
-	// Her kan du teste koden og funksjonene dine, 
-	// Ingenting som skrives her blir automatisk rettet, du tester her for din egen del
+	int choice;
+	cout << "Choose function:\n";
+	cout << "0. exit\n";
+	cout << "1. testCallByValue\n";
+	cout << "2. testcallByRefereance\n";
+	cout << "> ";
+	cin >> choice;
+
+	switch (choice) {
+		case 0:
+			exit(0);
+			break;
+		case 1:
+			testCallByValue();
+			break;
+		case 2:
+			testCallByReference();
+			break;
+		default:
+			cout << "Invalid choice\n";
+			break;
+	}
+
 
 	return 0;
 }

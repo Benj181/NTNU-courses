@@ -9,7 +9,11 @@ int incrementByValueNumTimes(int startValue, int increment, int numTimes)
 }
 
 // BEGIN: 1d
-///*returverdi*/ incrementByValueNumTimesRef(/*param 1: startValue(ref), param 2: increment, param 3: numtimes*/){}
+void incrementByValueNumTimesRef(int& startValue, int increment, int numTimes)
+{
+	for (int i = 0; i < numTimes; i++)
+		startValue += increment;
+}
 // END: 1d
 
 // BEGIN: 1e
