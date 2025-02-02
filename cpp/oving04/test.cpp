@@ -6,8 +6,10 @@ void testCallByValue()
 	int increment = 2;
 	int iterations = 10;
 	int result = incrementByValueNumTimes(v0, increment, iterations);
-	cout << "v0: " << v0 << " increment: " << increment
-		 << " iterations: " << iterations << " result: " << result << '\n';
+	cout << "v0: " << v0 
+		 << " increment: " << increment
+		 << " iterations: " << iterations 
+		 << " result: " << result << '\n';
 }
 
 void testCallByReference()

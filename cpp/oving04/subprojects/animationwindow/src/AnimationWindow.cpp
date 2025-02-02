@@ -60,6 +60,8 @@ TDT4102::AnimationWindow::~AnimationWindow() {
 }
 
 void TDT4102::AnimationWindow::destroy() {
+    this->destroyed = true;
+
     // Free SDL resources depending on how much ended up being initialised in the constructor
     if (rendererHandle != nullptr) {
         SDL_DestroyRenderer(rendererHandle);
@@ -73,14 +75,16 @@ void TDT4102::AnimationWindow::destroy() {
         nk_free(context);
         context = nullptr;
     }
+    // Needed for MacOS
+    // Window does not close unless the events are pumped
+    // after requesting that
+    pump_events();
 }
 
-void TDT4102::AnimationWindow::show_frame() {
-    SDL_RenderPresent(rendererHandle);
-    deltaMouseWheel = 0;
-
+void TDT4102::AnimationWindow::pump_events() {
     SDL_Event event;
-    nk_input_begin(context);
+    SDL_PumpEvents();
+ 
     while (SDL_PollEvent(&event)) {
         if (event.type == SDL_QUIT) {
             closeRequested = true;
@@ -107,8 +111,18 @@ void TDT4102::AnimationWindow::show_frame() {
             deltaMouseWheel = event.wheel.preciseY; // The amount scrolled vertically, positive away from the user and negative toward the user
         }
 
-        nk_sdl_handle_event(&event);
+        if(!destroyed) {
+            nk_sdl_handle_event(&event);
+        }
+        
     }
+}
+
+void TDT4102::AnimationWindow::show_frame() {
+    SDL_RenderPresent(rendererHandle);
+    deltaMouseWheel = 0;
+    nk_input_begin(context);
+    pump_events();
     nk_input_end(context);
 }
 

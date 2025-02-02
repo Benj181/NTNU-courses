@@ -41,10 +41,12 @@ class AnimationWindow {
    private:
     void show_frame();
     void update_gui();
+    void pump_events();
     TDT4102::Point getWindowDimensions() const;
     void startNuklearDraw(TDT4102::Point location, std::string uniqueWindowName, unsigned int width = 0, unsigned int height = 0);
     void endNuklearDraw();
     void destroy();
+    bool destroyed = false;
 
     // If set to true, new shapes will be drawn on top of the old ones. Can create some neat effects.
     // However, note that GUI elements such as buttons will not draw themselves correctly if you use this.

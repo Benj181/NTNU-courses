@@ -1,9 +1,8 @@
-
 #pragma once
 #include "std_lib_facilities.h"
 
 // BEGIN: 1b
- // deklarerer funksjonen incrementByValueNumTimes her
+int incrementByValueNumTimes(int startValue, int increment, int numTimes);
 // END: 1b
 
 // BEGIN: 1d
