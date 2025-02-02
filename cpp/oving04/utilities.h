@@ -1,5 +1,6 @@
 #pragma once
 #include "std_lib_facilities.h"
+#include <random>
 
 // BEGIN: 1b
 int incrementByValueNumTimes(int startValue, int increment, int numTimes);
@@ -33,7 +34,7 @@ bool isInProgram(const Student &stud, const string &program);
 // END: 2c
 
 // BEGIN: 3a
- // deklarerer funksjonen randomizeString her
+string randomizeString(const int &stringLength, const char &upperLimitChar, const char &lowerLimitChar);
 // END: 3a
 
 // BEGIN: 3c

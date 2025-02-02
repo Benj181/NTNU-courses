@@ -39,7 +39,23 @@ bool isInProgram(const Student &stud, const string &program){
 
 
 // BEGIN: 3a
-///*returverdi*/ randomizeString(/*param 1: antall tegn, param 2: øvre grense, param 3: nedre grense */) 
+string randomizeString(const int &stringLength, 
+					   const char &upperLimitChar, 
+					   const char &lowerLimitChar){
+	// A (=65) gives lower number than F (=70)
+	string result;
+    random_device rd;
+    default_random_engine generator(rd());
+    uniform_int_distribution<int> distribution(static_cast<int>(lowerLimitChar),
+											   static_cast<int>(upperLimitChar));
+
+	for (int i = 0; i < stringLength; ++i) {
+		char randomLetter = static_cast<char>(distribution(generator));
+		result += randomLetter;
+	}
+	return result;
+}
+
 // END: 3a
 
 // BEGIN: 3c
