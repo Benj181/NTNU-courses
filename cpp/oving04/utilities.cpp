@@ -42,7 +42,7 @@ bool isInProgram(const Student &stud, const string &program){
 string randomizeString(const int &stringLength, 
 					   const char &upperLimitChar, 
 					   const char &lowerLimitChar){
-	// A (=65) gives lower number than F (=70)
+	// A (=65) is a lower number than F (=70)
 	string result;
     random_device rd;
     default_random_engine generator(rd());
@@ -64,16 +64,19 @@ string readInputToString(const int &n, const char &upperLimitChar, const char &l
 	char input;
 	for (int i=0; i < n; i++){
 		while (1) {
-			cout << "Type in a character between " << lowerLimitChar << " and " << upperLimitChar << "\n> ";
+			cout << "Type in a character between " << upperLimitChar << " and " << lowerLimitChar << "\n> ";
 			cin >> input;
-			if (toupper(input) <= lowerLimitChar and
-			    toupper(input) >= upperLimitChar) {
+
+			input = static_cast<char>(toupper(input));
+			
+			if (input >= toupper(upperLimitChar) && input <= toupper(lowerLimitChar)) {
 				break;
-			} else {
+			} 
+			else {
 				cout << "Not a valid character, try again..." << endl;
 			}
 		}
-		result += toupper(input);
+		result += input;
 	}
 	return result;
 }
@@ -81,6 +84,6 @@ string readInputToString(const int &n, const char &upperLimitChar, const char &l
 
 // BEGIN: 3d
 int countChar(string letters, char letter){
-	return count(letters.begin(), letters.end(), letter);
+	return static_cast<int>(count(letters.begin(), letters.end(), letter));
 }
 // END: 3d

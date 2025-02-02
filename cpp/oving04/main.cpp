@@ -2,6 +2,7 @@
 #include "std_lib_facilities.h"
 #include "test.h"
 #include "utilities.h"
+#include "mastermind.h"
 
 int main(){
 	int choice;
@@ -40,6 +41,9 @@ int main(){
 			break;
 		case 7:
 			testreadInputToString();
+			break;
+		case 8:
+			playMastermind();
 			break;
 		default:
 			cout << "Invalid choice\n";
