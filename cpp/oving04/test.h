@@ -4,4 +4,5 @@
 
 void testCallByValue();
 void testCallByReference();
+void testSwapNumbers();
 void testString();

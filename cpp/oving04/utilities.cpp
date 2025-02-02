@@ -17,7 +17,12 @@ void incrementByValueNumTimesRef(int& startValue, int increment, int numTimes)
 // END: 1d
 
 // BEGIN: 1e
-///*returverdi*/ swapNumbers(/*parametre*/){}
+void swapNumbers(int& a, int& b)
+{
+	int temp = a;
+	a = b;
+	b = temp;
+}
 // END: 1e
 
 // BEGIN: 2b

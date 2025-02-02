@@ -10,7 +10,8 @@ void incrementByValueNumTimesRef(int& startValue, int increment, int numTimes);
 // END: 1d
 
 // BEGIN: 1e
- // deklarerer funksjonen swapNumbers her
+void swapNumbers(int& a, int& b);
+
 // END: 1e
 
 // BEGIN: 2a

@@ -27,7 +27,14 @@ void testCallByReference()
 	// END: 1d
 }
 
-
+void testSwapNumbers()
+{
+ int a = 2;
+ int b = 4;
+ cout << "Before: " << "a: " << a << ", b: " << b << endl;
+ swapNumbers(a, b);
+ cout << "After: " << "a: " << a << ", b: " << b << endl;
+}
 void testString(){
 	// 3b OG 3e gjøres inne i her
 	// BEGIN: 3e
