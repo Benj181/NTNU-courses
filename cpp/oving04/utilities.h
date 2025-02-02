@@ -29,7 +29,7 @@ void printStudent(Student& stud);
 // END: 2b
 
 // BEGIN: 2c
-// deklarerer funksjonen isInProgram her
+bool isInProgram(const Student &stud, const string &program);
 // END: 2c
 
 // BEGIN: 3a

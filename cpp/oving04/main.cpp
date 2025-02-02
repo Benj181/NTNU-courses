@@ -3,8 +3,7 @@
 #include "test.h"
 #include "utilities.h"
 
-int main()
-{
+int main(){
 	int choice;
 	cout << "Choose function:\n";
 	cout << "0. exit\n";
@@ -12,6 +11,7 @@ int main()
 	cout << "2. testcallByRefereance\n";
 	cout << "3. testSwapNumbers\n";
 	cout << "4. printStudent\n";
+	cout << "5. isInProgram\n";
 	cout << "> ";
 	cin >> choice;
 
@@ -30,6 +30,9 @@ int main()
 			break;
 		case 4:
 			testPrintStudent();
+			break;
+		case 5:
+			testIsInProgram();
 			break;
 		default:
 			cout << "Invalid choice\n";

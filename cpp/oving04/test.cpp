@@ -1,7 +1,6 @@
 #include "test.h"
 
-void testCallByValue()
-{
+void testCallByValue(){
 	int v0 = 5;
 	int increment = 2;
 	int iterations = 10;
@@ -12,8 +11,7 @@ void testCallByValue()
 		 << " result: " << result << '\n';
 }
 
-void testCallByReference()
-{
+void testCallByReference(){
 	// BEGIN: 1d
 	int v0 = 5;
 	int temp = v0;
@@ -27,8 +25,7 @@ void testCallByReference()
 	// END: 1d
 }
 
-void testSwapNumbers()
-{
+void testSwapNumbers(){
  int a = 2;
  int b = 4;
  cout << "Before: " << "a: " << a << ", b: " << b << endl;
@@ -36,11 +33,16 @@ void testSwapNumbers()
  cout << "After: " << "a: " << a << ", b: " << b << endl;
 }
 
-void testPrintStudent()
-{
+void testPrintStudent(){
 	Student stud {"Ben", "MTFYMA", 21};
 	printStudent(stud);
 }
+
+void testIsInProgram(){
+	Student s {"Ben", "MTFYMA", 21};
+	cout << "Is my program MTFYMA?: " << isInProgram(s, "MFYMA");
+}
+
 void testString(){
 	// 3b OG 3e gjøres inne i her
 	// BEGIN: 3e

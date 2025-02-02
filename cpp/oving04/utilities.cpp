@@ -26,14 +26,15 @@ void swapNumbers(int& a, int& b)
 // END: 1e
 
 // BEGIN: 2b
-void printStudent(Student& stud)
-{
+void printStudent(Student& stud){
 	cout << "Name: " << stud.name << ", Age: " << stud.age << ", Study Program: " << stud.studyProgram << endl;
 }
 // END: 2b
 
 // BEGIN: 2c
-///*returverdi*/ isInProgram(/*param 1: Student, param 2: string*/){}
+bool isInProgram(const Student &stud, const string &program){
+	return stud.studyProgram == program;	
+}
 // END: 2c
 
 
