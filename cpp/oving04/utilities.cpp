@@ -77,10 +77,10 @@ string readInputToString(const int &n, const char &upperLimitChar, const char &l
 	}
 	return result;
 }
-
-///*returverdi*/ c(/*param 1: lengde n, param 2: øvre grense, param 3: nedre grense*/)
 // END: 3c
 
 // BEGIN: 3d
-///*returverdi*/ countChar(/*param 1: string, param 2: char*/)
+int countChar(string letters, char letter){
+	return count(letters.begin(), letters.end(), letter);
+}
 // END: 3d

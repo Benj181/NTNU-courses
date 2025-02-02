@@ -46,14 +46,11 @@ void testIsInProgram(){
 
 void testString(){
 	// 3b OG 3e gjøres inne i her
-	// BEGIN: 3b
 	int stringLength = 8;
 	char upperChar = 'A';
 	char lowerChar = 'F';
-	randomizeString(stringLength, upperChar, lowerChar);
-	cout << "random string\n> " << randomizeString(stringLength, upperChar, lowerChar) <<endl;
-	// END: 3b
-
+	string grades = randomizeString(stringLength, upperChar, lowerChar);
+	cout << grades;
 	// BEGIN: 3e
 
 	// END: 3e

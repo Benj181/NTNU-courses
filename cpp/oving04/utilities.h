@@ -42,5 +42,5 @@ string readInputToString(const int &n, const char &upperLimitChar, const char &l
 // END: 3c
 
 // BEGIN: 3d
- // deklarerer funksjonen countChar her
+int countChar(string letters, char letter);
 // END: 3d
