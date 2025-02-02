@@ -15,11 +15,17 @@ void swapNumbers(int& a, int& b);
 // END: 1e
 
 // BEGIN: 2a
- // lag struct Student her
+struct Student
+{
+    string name;
+    string studyProgram;
+    int age;
+};
+
 // END: 2a
 
 // BEGIN: 2b
-// deklarerer funksjonen printStudent her
+void printStudent(Student& stud);
 // END: 2b
 
 // BEGIN: 2c

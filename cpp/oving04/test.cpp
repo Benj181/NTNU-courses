@@ -35,6 +35,12 @@ void testSwapNumbers()
  swapNumbers(a, b);
  cout << "After: " << "a: " << a << ", b: " << b << endl;
 }
+
+void testPrintStudent()
+{
+	Student stud {"Ben", "MTFYMA", 21};
+	printStudent(stud);
+}
 void testString(){
 	// 3b OG 3e gjøres inne i her
 	// BEGIN: 3e

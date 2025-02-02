@@ -5,4 +5,5 @@
 void testCallByValue();
 void testCallByReference();
 void testSwapNumbers();
+void testPrintStudent();
 void testString();

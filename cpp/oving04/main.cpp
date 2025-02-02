@@ -11,6 +11,7 @@ int main()
 	cout << "1. testCallByValue\n";
 	cout << "2. testcallByRefereance\n";
 	cout << "3. testSwapNumbers\n";
+	cout << "4. printStudent\n";
 	cout << "> ";
 	cin >> choice;
 
@@ -26,6 +27,9 @@ int main()
 			break;
 		case 3:
 			testSwapNumbers();
+			break;
+		case 4:
+			testPrintStudent();
 			break;
 		default:
 			cout << "Invalid choice\n";

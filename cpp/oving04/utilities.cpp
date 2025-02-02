@@ -26,7 +26,10 @@ void swapNumbers(int& a, int& b)
 // END: 1e
 
 // BEGIN: 2b
-///*returverdi*/ printStudent(/*input Student*/) {}
+void printStudent(Student& stud)
+{
+	cout << "Name: " << stud.name << ", Age: " << stud.age << ", Study Program: " << stud.studyProgram << endl;
+}
 // END: 2b
 
 // BEGIN: 2c
