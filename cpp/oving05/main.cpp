@@ -1,14 +1,10 @@
 #include "std_lib_facilities.h"
 #include "Card.h"
 #include "CardDeck.h"
+#include "Blackjack.h"
 
 int main(){
-	CardDeck cd{};
-	cd.shuffle();
-	cd.print();
-	cout << "----------------------" << endl;
-	cout << cd.drawCard().toString() << endl;
-	cout << "----------------------" << endl;
-	cd.print();
+	Blackjack b;
+	b.playGame();	
 	return 0;
 }
