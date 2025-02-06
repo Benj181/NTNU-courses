@@ -5,9 +5,9 @@ Blackjack::Blackjack(){
     deck.shuffle();
     drawDealerCard();
     drawDealerCard();
+    drawPlayerCard();
+    drawPlayerCard();
     dealerHandSum = getHandScore(dealerHand);
-    drawPlayerCard();
-    drawPlayerCard();
     playerHandSum = getHandScore(playerHand);
 }
 
@@ -23,7 +23,7 @@ int Blackjack::getCardValue(Card c){
     if (static_cast<int>(c.getRank()) < 10){
         return static_cast<int>(c.getRank());
     } else if (isAce(c)) {
-        return 11;
+        return 0;
     } else {
         return 10;
     }
@@ -33,6 +33,15 @@ int Blackjack::getHandScore(vector<Card> hand){
     int score = 0;
     for (size_t i = 0; i < hand.size(); ++i){
         score += getCardValue(hand.at(i));
+    }
+    for (size_t i = 0; i < hand.size(); ++i){
+        if (isAce(hand.at(i))){
+            if (score < 11){
+                score += 11;
+            } else {
+                score += 1;
+            }
+        }
     }
     return score;
 }
@@ -86,26 +95,26 @@ string Blackjack::dealerHandToString(){
 }
 
 void Blackjack::playGame(){
-    while(1){
-        if(dealerHandSum == 21){
-            cout << "Dealers hand: " << dealerHandToString() << endl;
-            cout << "Dealer have blackjack, You lose!" << endl;
-            break;
-        } else if(playerHandSum == 21){
-            cout << "On hand: " << playerHandToString() << endl;
-            cout << "You have blackjack, You win!" << endl;
-            break;
-        }
+    while(1){ // game loop
+        while(1){ // round loop
+            if(dealerHandSum == 21){
+                cout << "Dealers hand: " << dealerHandToString() << endl;
+                cout << "Dealer have blackjack, You lose!" << endl;
+                break;
+            } else if(playerHandSum == 21){
+                cout << "On hand: " << playerHandToString() << endl;
+                cout << "You have blackjack, You win!" << endl;
+                break;
+            }
 
-        cout << "Dealers hand: " << dealerHandToString() << endl;
-        cout << "On hand: " << playerHandToString()  << endl; 
-        while(1){
+            cout << "Dealers hand: " << dealerHandToString() << endl;
+            cout << "On hand: " << playerHandToString()  << endl; 
+            
             if (askPlayerDrawCard()){ // Draws card
                 drawPlayerCard();
                 if (playerHandSum > 21){
                     cout << "You got a " << playerHandToString(true) << ", and gives score of " << playerHandSum << endl;
-                    cout << "You lost!" << endl;
-                    
+                    cout << "You lost!" << endl;          
                     break;
                 } else {
                     cout << "You got a " << playerHandToString(true) << endl;
