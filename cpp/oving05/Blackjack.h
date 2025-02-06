@@ -14,7 +14,7 @@ class Blackjack{
         bool askPlayerDrawCard();
         void drawPlayerCard();
         void drawDealerCard();
-        string playerHandToString();
+        string playerHandToString(bool last);
         string dealerHandToString();
     public:
         Blackjack();
