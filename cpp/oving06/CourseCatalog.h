@@ -1,8 +1,7 @@
 #pragma once
 #include "std_lib_facilities.h"
 
-class CourseCatalog
-{
+class CourseCatalog{
 public:
 	void addCourse(const string& key, const string& value);
 	void removeCourse(const string& key);
@@ -18,3 +17,4 @@ private:
 };
 
 void testCourseCatalog();
+void testReadAndWrite();
