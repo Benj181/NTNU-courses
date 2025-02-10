@@ -4,7 +4,10 @@
 
 struct Config{ 
     // BEGIN: 4a
-
+    int color_up;
+    int color_down;
+    int velocity;
+        
     // END: 4a
 };
 

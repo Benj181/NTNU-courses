@@ -2,6 +2,12 @@
 #include "bouncingBall.h"
 
 // BEGIN: 4b
+map<int, Color> ball_colour = {
+    {1, Color::blue},
+    {2, Color::yellow},
+    {3, Color::red},
+    {4, Color::green}    
+};
 
 // END: 4b
 
