@@ -33,8 +33,7 @@ void addLineNumbers(const std::string &filename)
 	std::string line;
 	int lineNumber = 1;
 	while (std::getline(ipStream, line)) {
-		opStream << std::setw(3) << std::setfill('0');
-		opStream << lineNumber << " " << line << std::endl;
+		opStream << lineNumber << line << std::endl;
 		lineNumber++;
 	}
 
