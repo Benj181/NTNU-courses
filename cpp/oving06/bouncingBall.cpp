@@ -2,7 +2,7 @@
 #include "bouncingBall.h"
 
 // BEGIN: 4b
-map<int, Color> ball_colour = {
+map<int, Color> ball_color = {
     {1, Color::blue},
     {2, Color::yellow},
     {3, Color::red},
@@ -12,27 +12,36 @@ map<int, Color> ball_colour = {
 // END: 4b
 
 // BEGIN: 4c
-
+istream& operator>>(istream& is, Config& cfg){
+    is >> cfg.color_up;
+    is >> cfg.color_down;
+    is >> cfg.velocity;
+    return is;
+}
 // END: 4c
+
+ostream& operator<<(ostream& os, Config& cfg){
+    os << cfg.color_up << " ";
+    os << cfg.color_down << " ";
+    os << cfg.velocity << " ";
+    return os;
+}
 
 constexpr Point BOUNCE_WINDOW_TOP_LEFT{50, 50};
 constexpr int BOUNCE_WINDOW_WIDTH{800}; 
 constexpr int BOUNCE_WINDOW_HEIGHT{500};
 
-// FJERN DETTE NAAR DU BEGYNNER PÅ OPPGAVE 4e)
-#define BOUNCING_BALL
-//
-
 void bouncingBall(){
-    #ifndef BOUNCING_BALL
     AnimationWindow window{BOUNCE_WINDOW_TOP_LEFT.x, BOUNCE_WINDOW_TOP_LEFT.y, 
                            BOUNCE_WINDOW_WIDTH, BOUNCE_WINDOW_HEIGHT, "Bouncing ball"};
     
+    Color color_up;
+    Color color_down;
+    Config slow;
+    Config fast;
     const int radius{30};
     int alpha{1};
     int velocity{2};
-    Color colour_up{Color::blue};
-    Color colour_down{Color::blue};
     int x{0};
     int y{360};
     int increment_x{0};
@@ -41,8 +50,6 @@ void bouncingBall(){
     int count_bounce_bottom{0};
     int count_num_passes{0};
 
-    Config slow = {1, 1, 0};
-    Config fast = {1, 1, 0};
 
     // read in the configurations
     filesystem::path file_name{"konfigurasjon.txt"};
@@ -51,8 +58,8 @@ void bouncingBall(){
 
     // initialise the run
     velocity = slow.velocity;
-    colour_up = ball_colour.at(slow.colour_up);
-    colour_down = ball_colour.at(slow.colour_down);
+    color_up = ball_color.at(slow.color_up);
+    color_down = ball_color.at(slow.color_down);
 
     while (!window.should_close()) {
         // determine increments based on the velocity
@@ -69,12 +76,12 @@ void bouncingBall(){
             if (count_num_passes % 2 == 0) {
                 if (velocity == slow.velocity) {
                     velocity = fast.velocity;
-                    colour_up = ball_colour.at(fast.colour_up);
-                    colour_down = ball_colour.at(fast.colour_down);
+                    color_up = ball_color.at(fast.color_up);
+                    color_down = ball_color.at(fast.color_down);
                 } else {
                     velocity = slow.velocity;
-                    colour_up = ball_colour.at(slow.colour_up);
-                    colour_down = ball_colour.at(slow.colour_down);
+                    color_up = ball_color.at(slow.color_up);
+                    color_down = ball_color.at(slow.color_down);
                 }
             }
         } else {
@@ -94,9 +101,9 @@ void bouncingBall(){
 
         // BEGIN: 4d
         // movement in y-direction
+        window.draw_circle({x, y}, radius, color_up);
         // END: 4d
     
         window.next_frame();
     }
-    #endif
 }

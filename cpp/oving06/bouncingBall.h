@@ -12,7 +12,7 @@ struct Config{
 };
 
 extern map<int, Color> ball_colour;
-
 istream& operator>>(istream& is, Config& cfg);
+istream& operator<<(istream& is, Config& cfg);
 
 void bouncingBall();
