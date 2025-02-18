@@ -1,20 +1,26 @@
 #pragma once
 #include <iostream>
 #include <utility>
+#include <cassert>
 
 
 class Matrix {
 private:
 // BEGIN: 2a
-    
+    const int rows;
+    const int columns;
+    double* matrix;
 // END: 2a
 public:
     // BEGIN: 2b
-
+    Matrix(int nRows, int nColumns);
+    explicit Matrix(int nRows);
+    ~Matrix();
     // END: 2b
     
     // BEGIN: 2c
-    
+    double get(int row, int col) const;
+    void set(int row, int col, double value);
     // END: 2c
 
     // Her kan du gjøre 2d (frivillig):

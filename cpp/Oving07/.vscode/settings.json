@@ -3,5 +3,10 @@
     "cmake.configureOnOpen": false,
     "cmake.autoSelectActiveFolder": false,
     "cmake.configureOnEdit": false,
-    "makefile.alwaysPreConfigure": false
+    "makefile.alwaysPreConfigure": false,
+    "files.associations": {
+        "*.tcc": "cpp",
+        "type_traits": "cpp",
+        "istream": "cpp"
+    }
 }
