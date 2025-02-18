@@ -36,6 +36,6 @@ void createFibonacci(){
     fillInFibonacciNumbers(FibNums, n);
     printArray(FibNums, n);
     delete[] FibNums;
-    
+    exit(0);
 }
 // END: 1c
