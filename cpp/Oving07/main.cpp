@@ -4,5 +4,6 @@
 #include "Dummy.h"
 
 int main() {
+	createFibonacci();
 	return 0;
 }
