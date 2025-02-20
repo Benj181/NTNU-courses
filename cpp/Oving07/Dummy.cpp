@@ -1,7 +1,7 @@
 #include "Dummy.h"
 #include <iostream>
 
-/*
+
 void dummyTest() {
     Dummy a;
     *a.num = 4;
@@ -19,4 +19,4 @@ void dummyTest() {
     std::cout << "b: " << *b.num << '\n';
     std::cout << "c: " << *c.num << '\n';
 }
-*/
+

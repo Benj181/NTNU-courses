@@ -1,6 +1,6 @@
 #pragma once
 #include <utility>
-/*
+
 class Dummy {
 public:
     int *num;
@@ -23,4 +23,3 @@ public:
 };
 
 void dummyTest();
-*/
