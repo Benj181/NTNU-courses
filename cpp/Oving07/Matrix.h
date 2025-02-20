@@ -24,10 +24,12 @@ public:
     // END: 2c
 
     // Her kan du gjøre 2d (frivillig):
- 
+    const double* operator[](int row) const;
+
 
     // BEGIN: 2e
-    
+    int getRows() const {return rows;}
+    int getColumns() const {return columns;}
     // END: 2e
 
     
@@ -54,7 +56,7 @@ public:
 
 
 // BEGIN: 2f
-
+std::ostream& operator<<(std::ostream& os, const Matrix& rhs);
 // END: 2f
 
 void testMatrix();

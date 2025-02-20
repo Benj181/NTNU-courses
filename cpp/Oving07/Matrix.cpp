@@ -21,27 +21,35 @@ Matrix::~Matrix(){
 
 // BEGIN: 2c
 double Matrix::get(int row, int col) const{
-    assert(row < rows);
-    assert(col < columns);
+    assert(row >= 0 && row < rows);
+    assert(col >= 0 && col < columns);
 
     return matrix[row * rows + col];
 }
 
 void Matrix::set(int row, int col, double value){
-    assert(row < rows);
-    assert(col < columns);
+    assert(row >= 0 && row < rows);
+    assert(col >= 0 && col < columns);
 
     matrix[row * rows + col] = value;
 }
-
-
 // END: 2c
 
-// Her kan du gjøre 2d (frivillig):
-
+const double* Matrix::operator[](int row) const {
+    assert(row >= 0 && row < rows);
+    return &matrix[row * columns];
+}
 
 // BEGIN: 2f
-
+std::ostream& operator<<(std::ostream& os, const Matrix& rhs) {
+    for (int i = 0; i < rhs.getRows(); ++i) {
+        for (int j = 0; j < rhs.getColumns(); ++j) {
+            os << rhs.get(i, j) << ' ';
+        }
+        os << '\n';
+    }
+    return os;
+}
 // END: 2f
 
 
