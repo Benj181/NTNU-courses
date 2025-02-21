@@ -33,6 +33,7 @@ def critical_angle(n1, n2):
 # Constants
 n_air = 1.000
 n_water = 1.334
+n_water = 1.5195
 
 theta_i_ext = np.linspace(0, 90, 500)  # Incident angles (0 to 90 degrees)
 theta_i_int = np.linspace(0, 90, 500)  # Incident angles (0 to 90 degrees)
@@ -135,3 +136,4 @@ print(f"Brewster angle (Air to Water): {brewster_ext:.2f} degrees")
 print(f"Brewster angle (Water to Air): {brewster_int:.2f} degrees")
 if critical_int:
     print(f"Critical angle for total internal reflection: {critical_int:.2f} degrees")
+
