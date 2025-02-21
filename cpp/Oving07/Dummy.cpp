@@ -18,5 +18,6 @@ void dummyTest() {
     std::cout << "a: " << *a.num << '\n';
     std::cout << "b: " << *b.num << '\n';
     std::cout << "c: " << *c.num << '\n';
+    
 }
 

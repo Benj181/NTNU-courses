@@ -7,8 +7,8 @@
 class Matrix {
 private:
 // BEGIN: 2a
-    const int rows;
-    const int columns;
+    int rows;
+    int columns;
     double* matrix;
 // END: 2a
 public:
@@ -34,20 +34,20 @@ public:
 
     
     // BEGIN: 4a
-    
+    Matrix(const Matrix & rhs);
     // END: 4a
 
     // BEGIN: 4b
-    
+    Matrix& operator=(const Matrix rhs);
     // END: 4b
 
 
     // BEGIN: 5a
-    
+    Matrix& operator+=(const Matrix rhs);
     // END: 5a
 
     // BEGIN: 5b
-    
+    Matrix operator+(const Matrix rhs);
     // END: 5b
 
     // Her kan du gjøre 5d (frivillig):

@@ -4,9 +4,6 @@
 #include "Dummy.h"
 
 int main() {
-	// Matrix m{3};
-	// std::cout << m << std::endl;
-
-	dummyTest();
+	testMatrix();
 	return 0;
-}
+}	

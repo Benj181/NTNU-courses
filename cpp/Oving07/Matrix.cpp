@@ -54,25 +54,70 @@ std::ostream& operator<<(std::ostream& os, const Matrix& rhs) {
 
 
 // BEGIN: 4a
-
+Matrix::Matrix(const Matrix & rhs){
+    rows = rhs.rows;
+    columns = rhs.columns;
+    matrix = new double[static_cast<size_t>(rows) * static_cast<size_t>(columns)]();
+    for (int i = 0; i < rows*columns; i++){
+        matrix[i] = rhs.matrix[i];
+    }
+}
 // END: 4a
 
 // BEGIN: 4b
-
+Matrix& Matrix::operator=(Matrix rhs) {
+    std::swap(rows, rhs.rows);
+    std::swap(columns, rhs.columns);
+    std::swap(matrix, rhs.matrix);
+    return *this;
+}
 // END: 4b
 
 
 // BEGIN: 5a
+Matrix& Matrix::operator+=(const Matrix rhs){
+    assert(rows == rhs.rows && columns == rhs.columns);
+    for (int i = 0; i < rows*columns; i++){
+        matrix[i] += rhs.matrix[i];
+    }
+    return *this;
+}
 
 // END: 5a
 
 // BEGIN: 5b
-
+Matrix Matrix::operator+(const Matrix rhs){
+    assert(rows == rhs.rows && columns == rhs.columns);
+    Matrix m{rhs};
+    for (int i = 0; i < rows*columns; i++){
+        m.matrix[i] = matrix[i] + rhs.matrix[i];
+    }
+    return m;
+}
 // END: 5b
 
 
-void testMatrix() {
-    // Her kan du teste løsningen din (oppgave 5c):
+void testMatrix(){
+	Matrix A{2};
+	A.set(0, 0, 1.0);
+	A.set(0, 1, 2.0);
+	A.set(1, 0, 3.0);
+	A.set(1, 1, 4.0);
+	Matrix B{2};
+	B.set(0, 0, 4.0);
+	B.set(0, 1, 3.0);
+	B.set(1, 0, 2.0);
+	B.set(1, 1, 1.0);
+	Matrix C{2};
+	C.set(0, 0, 1.0);
+	C.set(0, 1, 3.0);
+	C.set(1, 0, 1.5);
+	C.set(1, 1, 2.0);
+
+	A += B + C;
+    std::cout << A << std::endl;
+    std::cout << B << std::endl;
+    std::cout << C << std::endl;
 }
 
 // Her kan du gjøre 5d (frivillig):
