@@ -58,8 +58,8 @@ int main(){
 
 	// std::cout << std::endl;
 
-	MeetingWindow win{TDT4102::Point{100, 100}, 800, 500, "Meeting GUI"};
+	MeetingWindow win{TDT4102::Point{100, 100}, 500, 300, "Meeting GUI"};
 	win.wait_for_close();
-
+	win.printPeople();
 	return 0;
 }

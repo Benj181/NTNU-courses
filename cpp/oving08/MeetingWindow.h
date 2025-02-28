@@ -3,6 +3,7 @@
 #include "AnimationWindow.h"
 #include "Meeting.h"
 #include "Person.h"
+#include "Car.h"
 #include "widgets/Button.h"
 #include "widgets/TextInput.h"
 #include "widgets/DropdownList.h"
@@ -20,7 +21,7 @@ class MeetingWindow : public TDT4102::AnimationWindow
 	static constexpr int pad = 20;
 	static constexpr int btnW = 80;
 	static constexpr int btnH = 40;
-	static constexpr int fieldW = 160;
+	static constexpr int fieldW = 240;
 	static constexpr int fieldH = 40;
 	// END 4c
 
@@ -38,18 +39,23 @@ class MeetingWindow : public TDT4102::AnimationWindow
 
 	// Person
 	// BEGIN 5a
-
+	TDT4102::TextInput personName;
+	TDT4102::TextInput personEmail;
 	// END 5a
 
 	// BEGIN 5b
-
+	TDT4102::TextInput personSeats;
+	TDT4102::Button personNewBtn;
 	// END 5b
 
 	// Personer
 	// BEGIN 5c
-
+	std::vector<std::shared_ptr<Person>> people;
+	void newPerson();
+	void clearWindow();
 	// END 5c
-
+	
+	void printPeople();
 	int dummyArgument;
 
 	// Hjelpefunksjoner og variabler
