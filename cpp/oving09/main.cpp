@@ -16,6 +16,7 @@ int main() {
 
 
     // Oppgave 2
+    testVector();
     optimizeVector();
 
     // Oppgave 3
