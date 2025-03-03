@@ -9,13 +9,14 @@
 
 int main() {
     // Oppgave 1
-    //measurePerformanceUnique();
-    //measurePerformanceShared();
-    //measurePerformanceStack();
-    //measurePerformanceHeap();
+    // std::cout << measurePerformanceUnique() << std::endl;
+    // std::cout << measurePerformanceShared() << std::endl;
+    // std::cout << measurePerformanceStack() << std::endl;
+    // std::cout << measurePerformanceHeap() << std::endl;
+
 
     // Oppgave 2
-    //optimizeVector();
+    optimizeVector();
 
     // Oppgave 3
     //optimizationTask();
