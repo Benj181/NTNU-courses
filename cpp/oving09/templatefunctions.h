@@ -37,5 +37,16 @@ void shuffle(std::vector<T>& vec) {
 // END 4b
 
 template <typename T>
-std::ostream& operator<<(std::ostream& os, const std::vector<T>& vec);
+std::ostream& operator<<(std::ostream& os, const std::vector<T>& vec) {
+    os << "[";
+    for (size_t i = 0; i < vec.size(); ++i) {
+        os << vec[i];
+        if (i != vec.size() - 1) {
+            os << ", ";
+        }
+    }
+    os << "]";
+    return os;
+}
+
 void testTemplateFunctions();
