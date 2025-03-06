@@ -20,7 +20,7 @@ int main() {
     // optimizeVector();
     
     // Oppgave 3
-    optimizationTask();
+    // optimizationTask();
     
     // Time taken: 4.27058seconds
     // Time taken: 3.98128seconds
@@ -28,10 +28,9 @@ int main() {
 
 
     // Oppgave 4
-    //testTemplateFunctions();
+    testTemplateFunctions();
     
     // Oppgave 5
     //testMyArray();
-    exit(0);
     return 0;
 }
