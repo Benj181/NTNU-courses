@@ -16,16 +16,22 @@ int main() {
 
 
     // Oppgave 2
-    testVector();
-    optimizeVector();
-
+    // testVector();
+    // optimizeVector();
+    
     // Oppgave 3
-    //optimizationTask();
+    optimizationTask();
+    
+    // Time taken: 4.27058seconds
+    // Time taken: 3.98128seconds
+    // Time taken: 1.46331seconds
+
 
     // Oppgave 4
     //testTemplateFunctions();
     
     // Oppgave 5
     //testMyArray();
+    exit(0);
     return 0;
 }
