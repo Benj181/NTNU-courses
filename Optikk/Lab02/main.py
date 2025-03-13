@@ -24,7 +24,7 @@ for i, s_1 in enumerate(s_1s):
     M_, s_2, s_i1, s_o2, s_i2, l = calc(s_1)
     ls[i] = l  
 
-print(ls.min())
+print(f'Minimum system length: {ls.min()}')
 s_1 = 150
 print('s_1:', s_1)
 M_, s_2, s_i1, s_o2, s_i2, l = calc(150)

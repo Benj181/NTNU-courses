@@ -1,0 +1,61 @@
+{
+  "version": 5,
+  "name": "test_opg1",
+  "objs": [
+    {
+      "type": "Ruler",
+      "p1": {
+        "x": 320,
+        "y": 460
+      },
+      "p2": {
+        "x": 1020,
+        "y": 460
+      }
+    },
+    {
+      "type": "IdealLens",
+      "p1": {
+        "x": 520,
+        "y": 340
+      },
+      "p2": {
+        "x": 520,
+        "y": 580
+      }
+    },
+    {
+      "type": "Ruler",
+      "p1": {
+        "x": 320,
+        "y": 460
+      },
+      "p2": {
+        "x": 320,
+        "y": 360
+      }
+    },
+    {
+      "type": "PointSource",
+      "x": 320,
+      "y": 360
+    },
+    {
+      "type": "IdealLens",
+      "p1": {
+        "x": 760,
+        "y": 340
+      },
+      "p2": {
+        "x": 760,
+        "y": 580
+      },
+      "focalLength": 25.4
+    }
+  ],
+  "width": 1500,
+  "height": 800,
+  "mode": "images",
+  "rayModeDensity": 20.085536923187668,
+  "snapToGrid": true
+}
