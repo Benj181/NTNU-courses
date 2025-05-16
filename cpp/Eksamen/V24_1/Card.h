@@ -1,7 +1,7 @@
 #pragma once
 #include "Entity.h"
-
-
+#include <map>
+#include <string>
 
 constexpr int CARD_A = 0;
 constexpr int CARD_2  = 1;

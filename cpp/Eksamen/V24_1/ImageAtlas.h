@@ -1,5 +1,6 @@
 #pragma once
 #include "AnimationWindow.h"
+#include <map>
 
 using ImageAtlasStored = std::shared_ptr<TDT4102::Image>;
 using ImageAtlasContainer = std::unordered_map<std::string, ImageAtlasStored>;

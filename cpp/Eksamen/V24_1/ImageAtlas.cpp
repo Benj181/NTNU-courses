@@ -5,7 +5,6 @@
 #include <fstream>
 #include "common.h"
 
-
 // TASK: T7
 bool ImageAtlas::has_image(const std::string &key) {
 // BEGIN: T7
@@ -14,7 +13,7 @@ bool ImageAtlas::has_image(const std::string &key) {
 // already there and replace it with your own.
     ImageAtlas &atlas = ImageAtlas::getInstance();
     std::unordered_map<std::string, std::shared_ptr<TDT4102::Image>> &container = atlas.container;
-    return false;
+    return container.contains(key);
 // END: T7
 }
 
@@ -26,7 +25,20 @@ void load_image_atlas(const std::filesystem::path &path)
 // and // END: T10 comments. You should remove any code that is
 // already there and replace it with your own.
     ImageAtlas atlas = ImageAtlas::getInstance();
-    return;
+    std::ifstream file(path);
+    if (!file.is_open()){
+        throw std::runtime_error("Cant open file");
+    }
+
+    for (std::string line; std::getline(file, line);) {
+        std::istringstream iss(line);
+        std::string rank, suit, relPath;
+        iss >> rank >> suit >> relPath;
+        std::string key = std::to_string(std::stoi(rank) + 1)  + suit;
+        std::string fullPath = IMAGE_DIR + relPath;
+        atlas.add_image(key, fullPath);
+    }
+    file.close();
 // END: T10
 }
 
