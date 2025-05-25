@@ -13,8 +13,13 @@ std::string player_key(Player player)
 // Write your answer to assignment T2 here, between the //BEGIN: T2
 // and // END: T2 comments. You should remove any code that is
 // already there and replace it with your own.
-    ;
-    return "invalid";
+    if (player == Player::ONE){
+        return "ONE";
+    } else if (player == Player::TWO){
+        return "TWO";
+    } else {
+        return "invalid";
+    }
 // END: T2
 }
 
@@ -25,7 +30,13 @@ bool is_valid_direction(TDT4102::Point from, TDT4102::Point to, Player player) {
 // Write your answer to assignment T4 here, between the //BEGIN: T4
 // and // END: T4 comments. You should remove any code that is
 // already there and replace it with your own.
-    return true;
+    if (player == Player::ONE && to.y - from.y > 0){
+        return true;
+    } else if (player == Player::TWO && to.y - from.y < 0){
+        return true;
+    } else {
+        return false;
+    }
 // END: T4
 }
 
@@ -37,7 +48,13 @@ std::pair<int, int> count_chips(std::vector<Tile> cells) {
 // Write your answer to assignment T6 here, between the //BEGIN: T6
 // and // END: T6 comments. You should remove any code that is
 // already there and replace it with your own.
-    ;
+    for (Tile cell : cells ) {
+        if (cell.player == Player::ONE){
+            counts.first++;
+        } else if (cell.player == Player::TWO) {
+            counts.second++;
+        }
+    }
 // END: T6
     return counts;
 }
@@ -48,7 +65,9 @@ std::pair<int, int> count_chips(std::vector<Tile> cells) {
 // Write your answer to assignment T8 here, between the //BEGIN: T8
 // and // END: T8 comments. You should remove any code that is
 // already there and replace it with your own.
-    ;
+constexpr bool operator==(const TDT4102::Point& lhs, const TDT4102::Point& rhs) {
+    return lhs.x == rhs.x && lhs.y == rhs.y;
+}
 // END: T8
 
 
@@ -60,7 +79,16 @@ void reset_button_callback() {
 // Write your answer to assignment T9 here, between the //BEGIN: T9
 // and // END: T9 comments. You should remove any code that is
 // already there and replace it with your own.
-    ;
+  auto oldPos = game_ptr->get_position();
+  auto oldWidth = game_ptr->get_width();
+  auto oldHeight = game_ptr->get_height();
+
+  auto v = std::stoi(list->getSelectedValue());
+
+  *game_ptr = BoardGame{v};
+  game_ptr->set_position(oldPos);
+  game_ptr->set_width(oldWidth);
+  game_ptr->set_height(oldHeight);
 // END: T9
 }
 

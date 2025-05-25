@@ -11,7 +11,7 @@ int Board::get_size() const {
 // Write your answer to assignment T1 here, between the //BEGIN: T1
 // and // END: T1 comments. You should remove any code that is
 // already there and replace it with your own.
-    return 8;
+    return size;
 // END: T1
 }
 
@@ -23,8 +23,37 @@ Board load_board(const std::filesystem::path &path) {
 // Write your answer to assignment T11 here, between the //BEGIN: T11
 // and // END: T11 comments. You should remove any code that is
 // already there and replace it with your own.
-  int size = 8;
-  return Board::create_blank(size);
+  std::ifstream file{path};
+
+  if (!file.is_open()) {
+    throw std::runtime_error("Couldn't open state");
+  }
+
+  int size;
+  file >> size;
+
+  Board result{size};
+
+  for ( int y = 0; y < size; y++ ) {
+      for ( int x = 0; x < size; x++ ) {
+        int value;
+        file >> value;
+
+          Player player = Player::NONE;
+          if (value == 1)
+            player = Player::ONE;
+          else if (value == 2)
+            player = Player::TWO;
+          else
+            player = Player::NONE;
+
+          result.cell_at(x, y).player = player;
+      }
+  }
+
+  file.close();
+
+  return result;
 // END: T11
 }
 

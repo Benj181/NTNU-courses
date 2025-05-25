@@ -1,7 +1,7 @@
 #include "BoardGame.h"
 #include "Rules.h"
 #include "Tasks.h"
-
+#include <iostream>
 
 
 // TASK: T3
@@ -11,7 +11,13 @@ bool BoardGame::inside_interaction_zone(TDT4102::Point pt)
 // Write your answer to assignment T3 here, between the //BEGIN: T3
 // and // END: T3 comments. You should remove any code that is
 // already there and replace it with your own.
-    return true;
+    int bx = get_position().x;
+    int by = get_position().y;
+    if (pt.x > bx && pt.x < bx + get_width() && pt.y > by && pt.y < by + get_height()){
+        return true;
+    } else {
+        return false;
+    }
 // END: T3
 }
 
@@ -23,7 +29,11 @@ void BoardGame::highlight()
 // Write your answer to assignment T7 here, between the //BEGIN: T7
 // and // END: T7 comments. You should remove any code that is
 // already there and replace it with your own.
-    ;
+    for (int x = 0; x < board.get_size(); x++){
+        for (int y = 0; y < board.get_size(); y++){
+            highlighted[y*board.get_size() + x] = Rules::can_move(board, selected, TDT4102::Point{x, y}, turn);
+        }
+    }
 // END: T7
 }
 
@@ -33,10 +43,11 @@ BoardGame::BoardGame(const Board &board_)
 // Write your answer to assignment T10 here, between the //BEGIN: T10
 // and // END: T10 comments. You should remove any code that is
 // already there and replace it with your own.
-{
+: board{board_} {
+    this->resize(board.get_size());
     turn = Player::ONE;
-    this->board = Board::create_blank(8);
-    this->resize(8);
+    winner = Player::NONE;
+    enabled = true;
 // END: T10
 }
 
