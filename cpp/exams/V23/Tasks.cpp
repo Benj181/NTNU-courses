@@ -48,7 +48,7 @@ unsigned int Level::get_height() const noexcept {
 // Write your answer to assignment T2 here, between the // BEGIN: T2
 // and // END: T2 comments. You should remove any code that is
 // already there and replace it with your own.
-    return 5;
+    return height;
 // END: T2
 }
 
@@ -63,7 +63,7 @@ bool Tile::has_image() const noexcept
 // Write your answer to assignment T3 here, between the // BEGIN: T3
 // and // END: T3 comments. You should remove any code that is
 // already there and replace it with your own.
-    return false;
+    return static_cast<bool>(image);
 // END: T3
 }
 
@@ -79,8 +79,8 @@ Region::Region(const TDT4102::Point p1, const TDT4102::Point p2)
 // Write your answer to assignment T4 here, between the // BEGIN: T4
 // and // END: T4 comments. You should remove any code that is
 // already there and replace it with your own.
-    begin = p1;
-    end = p2;
+    begin = TDT4102::Point(std::min(p1.x, p2.x), std::min(p1.y, p2.y));
+    end = TDT4102::Point(std::max(p1.x, p2.x), std::max(p1.y, p2.y));
 // END: T4
 }
 
@@ -103,8 +103,18 @@ void CameraController::handleInput(Context &ctx) {
 // Write your answer to assignment T5 here, between the // BEGIN: T5
 // and // END: T5 comments. You should remove any code that is
 // already there and replace it with your own.
-    camera.translateY(0);
-    camera.translateX(0);
+    if (window.is_key_down(KeyboardKey::W)){
+        camera.translateY(-1*scrollSpeed);
+    } 
+    if (window.is_key_down(KeyboardKey::S)){
+        camera.translateY(1*scrollSpeed);
+    } 
+    if (window.is_key_down(KeyboardKey::A)){
+        camera.translateX(-1*scrollSpeed);
+    } 
+    if (window.is_key_down(KeyboardKey::D)) {
+        camera.translateX(1*scrollSpeed);
+    }
 // END: T5
 }
 
@@ -122,7 +132,10 @@ void Level::set_tile_at(TDT4102::Point coordinate, int tile)
 // Write your answer to assignment T6 here, between the // BEGIN: T6
 // and // END: T6 comments. You should remove any code that is
 // already there and replace it with your own.
-    ;
+    if ( coordinate.x < 0 || coordinate.y < 0 ) return;
+    if (coordinate.y * height + coordinate.x < tiles.size()) {
+        tiles.at(coordinate.y * height + coordinate.x) = tile;
+    }
 // END: T6
 }
 
@@ -139,7 +152,10 @@ void Level::set_walkable_at(TDT4102::Point coordinate, bool walkable)
 // Write your answer to assignment T7 here, between the // BEGIN: T7
 // and // END: T7 comments. You should remove any code that is
 // already there and replace it with your own.
-    ;
+    if ( coordinate.x < 0 || coordinate.y < 0 ) return;
+    if (coordinate.y * height + coordinate.x < this->walkable.size()){
+        this->walkable.at(coordinate.y * height + coordinate.x <= tiles.size()) = walkable;
+    }
 // END: T7
 }
 
