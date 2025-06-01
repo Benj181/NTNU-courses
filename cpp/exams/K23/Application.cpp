@@ -46,7 +46,7 @@ void Application::run()
 
 // Task T3: Add a Reset button for the simulation to the AnimationWindow.
 // BEGIN: T3
-    ;
+window.add(resetButton);
 // END: T3
 
     // -------- SIMULATION LOOP --------
@@ -70,7 +70,18 @@ void Application::run()
 void Application::loadAndApplyConfiguration(filesystem::path filepath)
 {
 // BEGIN: T5
-    ;
+    int numBirds;
+    int numHawks;
+
+    std::ifstream file(filepath);
+    if (!file.is_open()){
+        throw std::runtime_error("Can't open file");
+    }
+    file >> numBirds >> numHawks;
+    file.close();
+
+    sim.applyConfiguration(numBirds, numHawks);
+
 // END: T5
 }
 

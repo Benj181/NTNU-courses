@@ -37,7 +37,7 @@ bool operator==(FloatingPoint a, FloatingPoint b) { return (int(a.x) == int(b.x)
 
 // Task T1: Overload the + operator for the FloatingPoint structure.
 // BEGIN: T1
-    ;
+FloatingPoint operator+(FloatingPoint a, FloatingPoint b) { return {a.x + b.x, a.y + b.y}; }
 // END: T1
 
 // ---------------------------------
@@ -76,7 +76,7 @@ Color Bird::getDisplayColor() noexcept
 void Bird::updatePosition()
 {
 // BEGIN: T2
-    ;
+position = position + velocity;
 // END: T2
 }
 
@@ -91,9 +91,25 @@ void Bird::update()
 void Bird::draw(AnimationWindow &window) const
 {
 // BEGIN: T8
-    FloatingPoint p1 = {position.x, position.y + 10.0};
-    FloatingPoint p2 = {position.x - 5.0, position.y - 5.0};
-    FloatingPoint p3 = {position.x + 5.0, position.y - 5.0};
+    double direction = std::atan2(velocity.y, velocity.x);  
+  
+
+    // FloatingPoint p1 = {position.x,  position.y};
+    // FloatingPoint p2 = {position.x,  position.y};
+    // FloatingPoint p3 = {position.x,  position.y};
+    FloatingPoint p1 = {
+        position.x + size * std::cos(direction),
+        position.y + size * std::sin(direction)
+    };
+    FloatingPoint p2 = {
+        position.x + size/2.0 * std::cos(direction + 2.0/3.0 * M_PI),
+        position.y + size/2.0 * std::sin(direction + 2.0/3.0 * M_PI)
+    };
+    FloatingPoint p3 = {
+        position.x + size/2.0 * std::cos(direction - 2.0/3.0 * M_PI),
+        position.y + size/2.0 * std::sin(direction - 2.0/3.0 * M_PI)
+    };
+
     
     window.draw_triangle(
         {static_cast<int> (p1.x), static_cast<int> (p1.y)},
@@ -118,10 +134,25 @@ void Dove::setColor(Color color)
 // and visual range.
 // BEGIN: T6
 
-void Dove::makeFriendsAndFoes(vector<shared_ptr<Bird>> &birds)
-{
+double distance(Bird* lhs, shared_ptr<Bird> rhs) {
+    return std::sqrt(std::pow(rhs->getPosition().x - lhs->getPosition().x, 2) + std::pow(rhs->getPosition().y - lhs->getPosition().y, 2));
+}
+void Dove::makeFriendsAndFoes(vector<shared_ptr<Bird>> &birds){
+    friends.clear();
+    foes.clear();
     if (birds.size() > 0){
-        bool isDove = isInstanceOf<Dove>(birds.at(0).get());
+        for (shared_ptr<Bird> birdptr : birds){
+            bool isDove = isInstanceOf<Dove>(birdptr.get());
+            bool isHawk = isInstanceOf<Hawk>(birdptr.get());
+            if(birdptr.get() != this){
+                if (isDove && distance(this, birdptr) < FRIEND_RADIUS) {
+                    friends.push_back(birdptr);
+                }
+                if (isHawk && distance(this, birdptr) < AVOID_RADIUS) {
+                    foes.push_back(birdptr);
+                }
+            }
+        }
     }
 }
 // END: T6
@@ -131,7 +162,12 @@ void Dove::makeFriendsAndFoes(vector<shared_ptr<Bird>> &birds)
 void Dove::updateVelocity()
 {
 // BEGIN: T7
-    ;
+    FloatingPoint newVel;
+    newVel = velocity + calculateAlignment() + calculateAvoidance() + calculateCohesion() + calculateSeparation();
+    if (magnitude(newVel) > MAX_SPEED){
+        newVel = (newVel / magnitude(newVel)) * MAX_SPEED;
+    }
+    velocity = newVel;
 // END: T7
 }
 
@@ -344,17 +380,59 @@ void getFlock(shared_ptr<Dove> dove, vector<shared_ptr<Dove>> &flock)
     }
 }
 
-void Simulator::colorBirds()
-{
-    ;
+void Simulator::colorBirds(){
+    auto doves = getDoves(birds);
+    for (auto &dove : doves) {
+        vector<shared_ptr<Dove>> flock;
+        getFlock(dove, flock);
+
+        int r = 0;
+        int g = 0;
+        int b = 0;
+        int flockCount = static_cast<int> (flock.size());
+        for (auto &dove : flock) {
+            r += static_cast<int> (dove->getOriginalColor().redChannel);
+            g += static_cast<int> (dove->getOriginalColor().greenChannel);
+            b += static_cast<int> (dove->getOriginalColor().blueChannel);
+        }
+        r = r / flockCount;
+        g = g / flockCount;
+        b = b / flockCount;
+        unsigned char newR = static_cast<unsigned char> (r);
+        unsigned char newG = static_cast<unsigned char> (g);
+        unsigned char newB = static_cast<unsigned char> (b);
+        Color newColor {newR, newG, newB};
+        dove->setColor(newColor);
 }
+}
+
 // END: T9
 
 // Task T10: Implement functionallity to add birds during the simulation.
 void Simulator::addBird()
 {
 // BEGIN: T10
-    ;
+    static bool pressed = false;
+    bool pressCase = window.is_left_mouse_button_down() && window.is_key_down(KeyboardKey::D);
+
+    if (pressCase && !pressed) {
+        Point mouseCoordinates = window.get_mouse_coordinates();
+        FloatingPoint position {double(mouseCoordinates.x), double(mouseCoordinates.y)};
+
+        FloatingPoint velocity {
+            static_cast<double>(randomInt(SIM_RAND_MIN, SIM_RAND_MAX)) / static_cast<double>(SIM_RAND_MAX),
+            static_cast<double>(randomInt(SIM_RAND_MIN, SIM_RAND_MAX)) / static_cast<double>(SIM_RAND_MAX)
+        };
+        Color color {
+            static_cast<unsigned char> (randomInt(0, 255)),
+            static_cast<unsigned char> (randomInt(0, 255)),
+            static_cast<unsigned char> (randomInt(0, 255))
+        };
+        createDove(position, velocity, color);
+        pressed = true;
+    } else if (!pressCase) {
+        pressed = false;
+    }
 // END: T10
 }
 
@@ -503,7 +581,9 @@ ResetButton::~ResetButton() {}
 void ResetButton::callback()
 {
 // BEGIN: T4
-    ;
+    if (!sim->simulationEnabled) {
+        sim->resetSimulation();
+    }
 // END: T4
 }
 
