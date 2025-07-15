@@ -13,3 +13,9 @@ To install python packages: <br>
 In mingw64 terminal in C:\tools\msys64\ <br>
 Run `pacman -S mingw-w64-clang-aarch64-python-(package)` to download packages <br>
 Run `pacman -Suy` to update all <br>
+
+  make virtual enviroment
+  `mkdir -p ~/venvs` - lies in C:\tools\msys64\home\<username>\venvs
+  `python -m venv ~/venvs/myproj` to make new venv
+  `source ~/venvs/myproj/bin/activate` to activate
+  
