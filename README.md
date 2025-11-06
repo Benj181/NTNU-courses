@@ -12,19 +12,15 @@ Sorted after courses
 
  
 
-
- ### To install python packages: <br> 
- > In mingw64 terminal in C:\tools\msys64\ <br>
- > - Run `pacman -S mingw-w64-clang-aarch64-python-(package)` to download packages <br>
- > - Run `pacman -Suy` to update all <br>
- > - Is possible to use pip in powershell <br>
-
-
-
-### To make virtual enviroment <br>
- > - <emsp> `mkdir -p ~/venvs` - lies in C:\tools\msys64\home\<username>\venvs <br>
- > - `python -m venv ~/venvs/myproj` to make new venv <br>
- > - `source ~/venvs/myproj/bin/activate` to activate <br>
+### To use python
+> Install arm64 or amd64 from https://www.python.org/downloads/windows/ (add to path) (better compatibility with amd64, but slower on arm64 machine)<br>
+> `py -0` to check versions<br>
+> Create venv with specific version `py -3.12-64 -m venv .venv`<br>
+> Activate it `.venv\Scripts\Activate.ps1`<br>
+> Make project file and run <br>
+> > `python -m pip install --upgrade pip`<br>
+> > `pip install -r requirements.txt`<br>
+> > `pip install -e .`<br>
 
 
 
