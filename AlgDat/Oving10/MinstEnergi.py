@@ -28,44 +28,87 @@ reactions_upper = 15
 # hver gang, om verdiene over ikke endres.
 seed = 0
 
-def topological_sort(Tasks):
-    visited = [False] * len(Tasks)
-    order = []
-    for task in Tasks:
-        if visited[task.i]:
-            continue
-        stack = [(task, False)]
-        while stack:
-            current, done = stack.pop()
-            if done:
-                order.append(current)
-                continue
-            if visited[current.i]:
-                continue
-            visited[current.i] = True
-            stack.append((current, True))
-            for neighbor in current.depends_on:
-                if not visited[neighbor.i]:
-                    stack.append((neighbor, False))
-    return order
+# def topological_sort(vertices):
+#     visited = [False] * len(vertices)
+#     order = []
+#     for vertex in vertices:
+#         if visited[vertex.i]:
+#             continue
+#         stack = [(vertex, False)]
+#         while stack:
+#             current, done = stack.pop()
+#             if done:
+#                 order.append(current)
+#                 continue
+#             if visited[current.i]:
+#                 continue
+#             visited[current.i] = True
+#             stack.append((current, True))
+#             for neighbor, _ in current.out:
+#                 if not visited[neighbor.i]:
+#                     stack.append((neighbor, False))
+#     return order
 
-from itertools import count
+class Vertex:
+    def __init__(self, name, i):
+        self.name = name
+        self.d = 1e9
+        self.i = i
+        self.out = []
+        self.p = None
+
+    def __str__(self):
+        out_str = ", ".join(
+            f"({vertex.name} ({vertex.i}), {e})" for vertex, e in self.out
+        )
+        return f"Vertex {self.name} ({self.i}):\n   d: {self.d}, out: [{out_str}], p: {self.p.name if self.p else None}"
+
+    def __repr__(self):
+        return str(self)
+
+def Relax(u, v, e):
+    if u.d + e < v.d:
+        v.d = u.d + e
+        v.p = u
+        return True
+    return False
+
+def Bellman_Ford(vertices, start):
+    start.d = 0
+    for _ in range(len(vertices) - 1):
+        for u in vertices:
+            for v, e in u.out:
+                Relax(u, v, e)
+    for u in vertices:
+        for v, e in u.out:
+            if Relax(u, v, e):
+                raise ValueError("Negative cycle detected")
+
+def trace_path(v, s):
+    if v.p is not None:
+        trace_path(v.p, s)
+    s.append(v.name)
+
 def least_energy(reactions, start, goal, laws_of_thermodynamics=True):
-    t = {}
-    ctr = count()
+    vertices = []
     for a, b, _ in reactions:
-        t.setdefault(a, next(ctr))
-        t.setdefault(b, next(ctr))
-    n = len(t)
-    edges = [[] for _ in range(n)]
-    for a, b, e in reactions:
-        edges[t[a]].append((t[b], e))
+        if a not in [v.name for v in vertices]:
+            vertices.append(Vertex(a, len(vertices)))
+        if b not in [v.name for v in vertices]:
+            vertices.append(Vertex(b, len(vertices)))
 
-    print("Graph:")
-    for i in range(n):
-        print(f"  {i} ({list(t.keys())[list(t.values()).index(i)]}): "
-              f"{edges[i]}")
-        
+    for a, b, e in reactions:
+        va = next(v for v in vertices if v.name == a)
+        vb = next(v for v in vertices if v.name == b)
+        va.out.append((vb, e))
+    
+    start_vertex = next(v for v in vertices if v.name == start)
+    Bellman_Ford(vertices, start_vertex)
+    goal_vertex = next(v for v in vertices if v.name == goal)
+    s = []
+    trace_path(goal_vertex, s)
+    return s
+
 # Hardkodete tester på format: (reactions, start, goal), lavest mulig energi
 tests = [
     (([("A", "B", 100)], "A", "B"), 100),

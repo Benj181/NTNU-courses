@@ -26,10 +26,24 @@ trains_upper = 50
 # hver gang, om verdiene over ikke endres.
 seed = 0
 
-
 def earliest_arrival(timetable, start, goal):
-    # Skriv koden din her
-    pass
+    # Triviell spesialtilfelle
+    if start == goal:
+        return 0
+
+    INF = float('inf')
+    earliest = {start: 0}
+
+    # Behandle tog i rekkefølge etter avreisetid
+    for a, b, t0, t1 in sorted(timetable, key=lambda x: x[2]):
+        ta = earliest.get(a, INF)
+        if ta <= t0:
+            tb = earliest.get(b, INF)
+            if t1 < tb:
+                earliest[b] = t1
+
+    return earliest.get(goal, INF)
+
 
 
 # Hardkodete tester på format: (tog, start, slutt), tidligst tidspunkt
